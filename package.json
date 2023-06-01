@@ -1,0 +1,28 @@
+{
+  "name": "pern-otel",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "react": "cd frontend && npm run dev",
+    "node": "cd backend && node --require ./tracing.js server",
+    "start": "concurrently \"npm run react\" \"npm run node\"",
+    "postinstall": "(cd backend && npm install) && (cd frontend && npm install)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zmrfzn/pern-otel.git"
+  },
+  "keywords": [
+    "otel;pern;javascript;"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
+  "author": "zameer fouzan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zmrfzn/pern-otel/issues"
+  },
+  "homepage": "https://github.com/zmrfzn/pern-otel#readme"
+}

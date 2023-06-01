@@ -1,0 +1,40 @@
+{
+  "name": "react-tutorials",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "env-cmd -f ./.env.local vite",
+    "build": "env-cmd -f  ./.env vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.4.1",
+    "@opentelemetry/auto-instrumentations-web": "^0.32.1",
+    "@opentelemetry/context-zone": "^1.8.0",
+    "@opentelemetry/core": "^1.8.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.38.0",
+    "@opentelemetry/instrumentation": "^0.38.0",
+    "@opentelemetry/sdk-trace-base": "^1.8.0",
+    "@opentelemetry/sdk-trace-web": "^1.8.0",
+    "axios": "^0.26.1",
+    "bootstrap": "^4.6.0",
+    "primeicons": "^6.0.1",
+    "primereact": "^8.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.2.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0-beta.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "vite": "^4.3.0"
+  }
+}
