@@ -1,9 +1,11 @@
+<p float="left">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/NodeJS-Light.svg" width="50" height="50">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/React-Light.svg" width="50" height="50">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Vite-Light.svg" width="50" height="50">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Sequelize-Light.svg" width="50" height="50">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/PostgreSQL-Light.svg" width="50" height="50">
-<img src="https://cncf-branding.netlify.app/img/projects/opentelemetry/icon/color/opentelemetry-icon-color.svg" width="50" height="50" style="background:#F4F2ED;border-radius:25%;">
+<img src="https://cncf-branding.netlify.app/img/projects/opentelemetry/icon/color/opentelemetry-icon-color.svg" width="50" height="50" style="background-color:#F4F2ED;border-radius:25%;">
+</p>
 <hr>
 
 # OpenTelemetry for Javascript apps
