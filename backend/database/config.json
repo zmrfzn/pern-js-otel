@@ -1,0 +1,28 @@
+{
+    "development": {
+      "username": "postgres",
+      "password": "root",
+      "database": "DevRel",
+      "host": "localhost",
+      "dialect": "postgres",
+      "pool": {
+        "max": 2,
+        "min": 0,
+        "acquire": 30000,
+        "idle": 10000
+      }
+    },
+    "production": {
+      "username": "postgres",
+      "password": "root",
+      "database": "DevRel",
+      "host": "localhost",
+      "dialect": "postgres",
+      "pool": {
+        "max": 2,
+        "min": 0,
+        "acquire": 30000,
+        "idle": 10000
+      }
+    }
+  }
