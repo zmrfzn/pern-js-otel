@@ -7,7 +7,10 @@ const path = require('path');
 
 const app = express();
 
-const CORSwhitelist = ['http://localhost:8081','http://127.0.0.1:8081', 'http://13.235.117.14'];
+// var corsOptions = {
+//   origin: "*"
+// };
+// app.use(cors(corsOptions));
 
 
 // parse requests of content-type - application/json
@@ -27,9 +30,9 @@ app.use(function (req, res, next) {
   );
   res.setHeader("Access-Control-Allow-Methods","*")
   let origin = req.get("origin");
-  if (CORSwhitelist.indexOf(origin) >= 0) {
     res.header("Access-Control-Allow-Origin", origin);
-  }
+  // if (CORSwhitelist.indexOf(origin) >= 0) {
+  // }
   return next();
 });
 
