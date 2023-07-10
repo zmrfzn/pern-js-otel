@@ -26,15 +26,12 @@ const COLLECTOR_STRING = `${import.meta.env.VITE_APP_OTLP_URL}` || "http://local
 console.log(`CollectorString: ${COLLECTOR_STRING}`);
 
 const resourceSettings = new Resource({
-  [SemanticResourceAttributes.SERVICE_NAME]: "react-tutorials-otel",
+  [SemanticResourceAttributes.SERVICE_NAME]: "react-tutorials-otel-nxt-gen",
   [SemanticResourceAttributes.SERVICE_VERSION]: '0.0.1',
 });
 
 const newRelicExporter = new OTLPTraceExporter({
-  url: COLLECTOR_STRING,
-  headers: {
-    "api-key": `${import.meta.env.VITE_APP_NR_LICENSE}` 
-  },
+  url: COLLECTOR_STRING
 });
 
 const provider = new WebTracerProvider({resource: resourceSettings});
