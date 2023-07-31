@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "env-cmd -f ./.env.local vite",
+    "dev": "env-cmd -f ./.env.local vite --strictPort --host",
     "build": "env-cmd -f  ./.env vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

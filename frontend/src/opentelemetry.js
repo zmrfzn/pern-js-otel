@@ -26,15 +26,12 @@ const COLLECTOR_STRING = `${import.meta.env.VITE_APP_OTLP_URL}` || "http://local
 console.log(`CollectorString: ${COLLECTOR_STRING}`);
 
 const resourceSettings = new Resource({
-  [SemanticResourceAttributes.SERVICE_NAME]: "react-tutorials-otel",
+  [SemanticResourceAttributes.SERVICE_NAME]: "react-tutorials-otel-nxt-gen",
   [SemanticResourceAttributes.SERVICE_VERSION]: '0.0.1',
 });
 
 const newRelicExporter = new OTLPTraceExporter({
-  url: COLLECTOR_STRING,
-  headers: {
-    "api-key": `${import.meta.env.VITE_APP_NR_LICENSE}` 
-  },
+  url: COLLECTOR_STRING
 });
 
 const provider = new WebTracerProvider({resource: resourceSettings});
@@ -76,13 +73,7 @@ const startOtelInstrumentation = () => {
           enabled:true,
           ignoreUrls: ["/localhost:8081/sockjs-node"],
           clearTimingResources: true,
-          propagateTraceHeaderCorsUrls: [
-            /http:\/\/127\.0\.0\.1:\d+\.*/,
-            /http:\/\/localhost:\d+\.*/,
-            // matches URL of pattern =>  "http://<ip>/v1/api/anything" OR "http://<ip>/api/anything"
-            /http:\/\/13\.235\.117\.14\/?\w?\d?\/api\/\w+\.*/,
-            /http:\/\/3\.230\.230\.121\/?\w?\d?\/api\/\w+\.*/,
-          ],
+          propagateTraceHeaderCorsUrls: [/.+/g],
         },
         "@opentelemetry/instrumentation-document-load": {
           enabled: true,

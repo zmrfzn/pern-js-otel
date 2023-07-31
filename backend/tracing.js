@@ -15,7 +15,7 @@ const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-proto"
 const { diag, DiagConsoleLogger, DiagLogLevel } = require("@opentelemetry/api");
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
-const COLLECTOR_STRING = "https://otlp.nr-data.net:4318/v1/traces";
+const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
 
 /**
  * The `newRelicExporter` is an instance of OTLPTraceExporter 
@@ -23,14 +23,11 @@ const COLLECTOR_STRING = "https://otlp.nr-data.net:4318/v1/traces";
  * Make sure you have added your New Relic Ingest License to NR_LICENSE env-var
  */
 const newRelicExporter = new OTLPTraceExporter({
-  url: COLLECTOR_STRING,
-  headers: {
-    "api-key": `${process.env.NR_LICENSE}`,
-  },
+  url: COLLECTOR_STRING
 });
 
 const sdk = new opentelemetry.NodeSDK({
-  serviceName: "node-express-otel",
+  serviceName: "node-express-otel-nxt-gen",
   traceExporter: newRelicExporter,
   // Configure the propagator to enable context propagation between services using the W3C Trace Headers
   textMapPropagator: new CompositePropagator({
