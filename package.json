@@ -5,8 +5,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "react": "cd frontend && npm run dev",
-    "node": "cd backend && node --require ./tracing.js server",
+    "node": "cd backend && node server",
+    "node-otel": "cd backend && node --require ./tracing.js server",
     "start": "concurrently \"npm run react\" \"npm run node\"",
+    "start-otel": "concurrently \"npm run react\" \"npm run node-otel\"",
     "postinstall": "(cd backend && npm install) && (cd frontend && npm install)"
   },
   "repository": {

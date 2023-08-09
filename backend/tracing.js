@@ -15,7 +15,8 @@ const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-proto"
 const { diag, DiagConsoleLogger, DiagLogLevel } = require("@opentelemetry/api");
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
-const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
+//const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
+const COLLECTOR_STRING = "COLLECTOR_ENDPOINT_HERE";
 
 /**
  * The `newRelicExporter` is an instance of OTLPTraceExporter 
