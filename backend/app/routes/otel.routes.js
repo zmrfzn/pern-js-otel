@@ -3,10 +3,8 @@ const otelRouter = express.Router();
 const path = require('path');
 const logger = require("./../logger");
 
-const OTEL_CONFIG = {
-    NR_LICENSE : "f5644626eef13f26d27746c6e381555ef9f9NRAL",
-    NR_ENDPOINT: "https://otlp.nr-data.net:4318/v1/traces"
-}
+//const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
+const COLLECTOR_URL = "COLLECTOR_ENDPOINT_HERE";
 
 otelRouter.post("/", (req,res) => {
     console.log(req.originalUrl);
@@ -14,10 +12,9 @@ otelRouter.post("/", (req,res) => {
 
     var config = {
       method: "post",
-      url: `${OTEL_CONFIG.NR_ENDPOINT}`,
+      url: COLLECTOR_URL,
       headers: {
-        "Content-Type": "application/json",
-        "api-key" : OTEL_CONFIG.NR_LICENSE
+        "Content-Type": "application/json"
       },
       data: req.body
     };

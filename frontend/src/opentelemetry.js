@@ -22,7 +22,9 @@ import {
 
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-const COLLECTOR_STRING = `${import.meta.env.VITE_APP_OTLP_URL}` || "http://localhost:4318/v1/traces";
+//const COLLECTOR_STRING = `${import.meta.env.VITE_APP_API_URL}/traces`;
+const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
+
 console.log(`CollectorString: ${COLLECTOR_STRING}`);
 
 const resourceSettings = new Resource({
