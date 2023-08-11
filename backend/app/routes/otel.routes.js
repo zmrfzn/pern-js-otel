@@ -3,7 +3,7 @@ const otelRouter = express.Router();
 const path = require('path');
 const logger = require("./../logger");
 
-//const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
+// const COLLECTOR_URL = "http://localhost:4318/v1/traces";
 const COLLECTOR_URL = "COLLECTOR_ENDPOINT_HERE";
 
 otelRouter.post("/", (req,res) => {
