@@ -7,6 +7,22 @@ const path = require('path');
 
 const app = express();
 
+const {chaos} = require('express-chaos-middleware');
+
+// if process.env.CHAOS_LEVEL is available
+if(process.env.CHAOS_LEVEL) {
+  
+  let CHAOS_LEVEL = +process.env.CHAOS_LEVEL;
+  
+  console.error(`chaos level at ${CHAOS_LEVEL}`)
+  
+  app.use(chaos({
+    probability: CHAOS_LEVEL,
+    errCodes: [500],
+    ignoreRoutes: ['/api/traces']
+  }))
+}
+
 // var corsOptions = {
 //   origin: "*"
 // };
