@@ -4,7 +4,7 @@
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Vite-Light.svg" width="50" height="50">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Sequelize-Light.svg" width="50" height="50">
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/PostgreSQL-Light.svg" width="50" height="50">
-<img src="https://cncf-branding.netlify.app/img/projects/opentelemetry/icon/color/opentelemetry-icon-color.svg" width="50" height="50" style="background-color:#F4F2ED;border-radius:25%;">
+<img src="https://raw.githubusercontent.com/cncf/artwork/c2e619cdf85e8bac090ceca7c0834c5cfedf9426/projects/opentelemetry/icon/color/opentelemetry-icon-color.svg" width="50" height="50" style="background-color:#F4F2ED;border-radius:25%;">
 </p>
 <hr>
 
