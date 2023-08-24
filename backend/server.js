@@ -18,7 +18,7 @@ if(process.env.CHAOS_LEVEL) {
   
   app.use(chaos({
     probability: CHAOS_LEVEL,
-    errCodes: [500],
+    errCodes: [401,500],
     ignoreRoutes: ['/api/traces']
   }))
 }
