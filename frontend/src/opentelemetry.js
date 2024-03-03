@@ -22,7 +22,7 @@ import {
 
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-//const COLLECTOR_STRING = `${import.meta.env.VITE_APP_API_URL}/traces`;
+//const COLLECTOR_STRING = `${import.meta.env.VITE_APP_OTLP_URL}`;
 const COLLECTOR_STRING = "http://localhost:4318/v1/traces";
 
 console.log(`CollectorString: ${COLLECTOR_STRING}`);
@@ -33,13 +33,16 @@ const resourceSettings = new Resource({
 });
 
 const newRelicExporter = new OTLPTraceExporter({
-  url: COLLECTOR_STRING
+  url: COLLECTOR_STRING,
+  headers: {
+    'api-key': `${import.meta.env.VITE_APP_NR_LICENSE}`
+  }
 });
 
 const provider = new WebTracerProvider({resource: resourceSettings});
 
 //Uncomment this to enable debugging using consoleExporter
-//provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
 
 provider.addSpanProcessor(
 new BatchSpanProcessor(
@@ -70,28 +73,28 @@ const startOtelInstrumentation = () => {
   // Registering instrumentations
   registerInstrumentations({
     instrumentations: [
-      getWebAutoInstrumentations({
-        "@opentelemetry/instrumentation-xml-http-request": {
-          enabled:true,
-          ignoreUrls: ["/localhost:8081/sockjs-node"],
-          clearTimingResources: true,
-          propagateTraceHeaderCorsUrls: [/.+/g],
-        },
-        "@opentelemetry/instrumentation-document-load": {
-          enabled: true,
-        },
-        "@opentelemetry/instrumentation-user-interaction": {
-          enabled:true,
-          eventNames: [
-            "click",
-            "load",
-            "loadeddata",
-            "loadedmetadata",
-            "loadstart",
-            "error",
-          ],
-        },
-      }),
+      // getWebAutoInstrumentations({
+      //   "@opentelemetry/instrumentation-xml-http-request": {
+      //     enabled:true,
+      //     ignoreUrls: ["/localhost:8081/sockjs-node"],
+      //     clearTimingResources: true,
+      //     propagateTraceHeaderCorsUrls: [/.+/g],
+      //   },
+      //   "@opentelemetry/instrumentation-document-load": {
+      //     enabled: true,
+      //   },
+      //   "@opentelemetry/instrumentation-user-interaction": {
+      //     enabled:true,
+      //     eventNames: [
+      //       "click",
+      //       "load",
+      //       "loadeddata",
+      //       "loadedmetadata",
+      //       "loadstart",
+      //       "error",
+      //     ],
+      //   },
+      // }),
     ],
   });
 };

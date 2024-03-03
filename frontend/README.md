@@ -9,7 +9,7 @@ This project was bootstrapped with [Vite](https://vitejs.dev/) and [React](https
 VITE_APP_NR_LICENSE='<YOUR NEW RELIC INGEST LICENSE>'
 ```
 
-### OpenTelemetry collector endpoint
+### OpenTelemetry collector endpoint or New Relic OTLP Trace endpoint
 .env.local
 ```
 VITE_APP_OTLP_URL='https://otlp.nr-data.net:4318/v1/traces'

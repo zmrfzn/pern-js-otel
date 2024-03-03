@@ -72,8 +72,9 @@ app.get("/health", (req, res) => {
 require("./app/routes/turorial.routes")(app);
 const weather = require("./app/routes/weather.routes");
 app.use("/api/weather",weather);
-const otelRouter = require('./app/routes/otel.routes'); 
-app.use('/api/traces',otelRouter)
+// NOT IN USE FOR OTEL LAB
+// const otelRouter = require('./app/routes/otel.routes'); 
+// app.use('/api/traces',otelRouter)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
