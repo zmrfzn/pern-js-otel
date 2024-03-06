@@ -7,7 +7,7 @@ const path = require('path');
 
 const app = express();
 
-const {chaos, Rules} = require('express-chaos-middleware');
+// const {chaos, Rules} = require('express-chaos-middleware');
 
 // if process.env.CHAOS_LEVEL is available
 if(process.env.CHAOS_LEVEL) {
