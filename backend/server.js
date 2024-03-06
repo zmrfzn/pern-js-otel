@@ -7,7 +7,7 @@ const path = require('path');
 
 const app = express();
 
-// const {chaos} = require('express-chaos-middleware');
+const {chaos} = require('express-chaos-middleware');
 
 // if process.env.CHAOS_LEVEL is available
 if(process.env.CHAOS_LEVEL) {
@@ -18,8 +18,7 @@ if(process.env.CHAOS_LEVEL) {
   
   app.use(chaos({
     probability: CHAOS_LEVEL,
-    errCodes: [401,500],
-    ignoreRoutes: ['/api/traces']
+    rules: [Rules.DELAY, Rules.HTTPERROR]
   }))
 }
 
@@ -45,10 +44,7 @@ app.use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Accept, traceparent"
   );
   res.setHeader("Access-Control-Allow-Methods","*")
-  let origin = req.get("origin");
-    res.header("Access-Control-Allow-Origin", origin);
-  // if (CORSwhitelist.indexOf(origin) >= 0) {
-  // }
+  res.header("Access-Control-Allow-Origin", "'*");
   return next();
 });
 
