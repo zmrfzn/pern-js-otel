@@ -6,8 +6,24 @@ const cors = require("cors");
 const path = require('path');
 
 const app = express();
+app.use(cors()); 
 
-// const {chaos, Rules} = require('express-chaos-middleware');
+const {chaos, Rules} = require('express-chaos-middleware');
+
+//set custom headers | CORS control
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, traceparent"
+  );
+  res.setHeader("Access-Control-Allow-Methods","*")
+  let origin = req.get("origin");
+  res.header("Access-Control-Allow-Origin", origin);
+
+  return next();
+});
+
 
 // if process.env.CHAOS_LEVEL is available
 if(process.env.CHAOS_LEVEL) {
@@ -18,7 +34,7 @@ if(process.env.CHAOS_LEVEL) {
   
   app.use(chaos({
     probability: CHAOS_LEVEL,
-    rules: [Rules.DELAY, Rules.HTTPERROR]
+    errCodes: [404,500]
   }))
 }
 
@@ -36,17 +52,6 @@ app.use(express.urlencoded({ extended: true }));
 
 console.info(`log path => ${path.resolve(__dirname, '/../../build')}`)
 
-//set custom headers | CORS control
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, traceparent"
-  );
-  res.setHeader("Access-Control-Allow-Methods","*")
-  res.header("Access-Control-Allow-Origin", "*");
-  return next();
-});
 
 const db = require("./database");
 db.sequelize
