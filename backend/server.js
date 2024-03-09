@@ -34,7 +34,7 @@ if(process.env.CHAOS_LEVEL) {
   
   app.use(chaos({
     probability: CHAOS_LEVEL,
-    errCodes: [404,500]
+    rules: [Rules.HTTPERROR]
   }))
 }
 

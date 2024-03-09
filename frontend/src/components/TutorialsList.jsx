@@ -53,14 +53,6 @@ const TutorialsList = () => {
     };
 
     const retrieveTutorials = async () => {
-        const span = tracer.startSpan('GET', {
-          kind: SpanKind.CLIENT
-        });
-        // Get the active context
-        const activeContext = context.active();
-
-        // Start a new span with the active context as parent
-        span.spanContext(activeContext);
 
 
         await TutorialDataService.getCategories();
@@ -73,7 +65,16 @@ const TutorialsList = () => {
                 })
             })
             .catch(e => {
+                const span = tracer.startSpan('errors-span', {
+                    kind: SpanKind.CLIENT
+                });
+                // Get the active context
+                const activeContext = context.active();
 
+                // Start a new span with the active context as parent
+                span.spanContext(activeContext);
+                span.setAttribute('statusCode',e?.response?.status)
+                span.setAttribute('statusText',e?.response?.statusText)
                 span.recordException(e);
                 
                 span.setStatus({
@@ -85,8 +86,9 @@ const TutorialsList = () => {
                         'error.stacktrace': e.stack, // Include the error stack trace for debugging
                     }
                 });
+                span.end()
                 console.log(e);
-            }).finally(() => span.end())
+            })
     };
 
     const resetSelectedItem = () => {
