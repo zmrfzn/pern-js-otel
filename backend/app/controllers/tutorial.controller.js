@@ -1,7 +1,9 @@
 const db = require("../../database");
 const logger = require("./../logger");
+const { trace, SpanStatusCode } = require("@opentelemetry/api");
 
 const Tutorial = db.tutorials;
+const tracer = trace.getTracer("tutorial-controller");
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
@@ -48,38 +50,48 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title
-    ? { title: { $regex: new RegExp(title), $options: "i" } }
-    : {};
+  tracer.startActiveSpan("findAll-tutorials", (span) => {
+    const title = req.query.title;
+    var condition = title
+      ? { title: { $regex: new RegExp(title), $options: "i" } }
+      : {};
 
-  Tutorial.findAll({ where: condition,order: [['updatedAt', 'DESC']]})
-    .then((data) => {
-      logger.info(`${req.method} ${req.originalUrl} Fetched ${data.length} records`);
-      logger.info(`${req.method} ${req.originalUrl} - Request Successful!!`);
+    span.setAttribute("query.title", title || "");
+    span.setAttribute("query.hasCondition", !!title);
 
-      let mappedData = data.map((d) => d.get({ plain: true }));
+    Tutorial.findAll({ where: condition, order: [['updatedAt', 'DESC']] })
+      .then((data) => {
+        span.setAttribute("result.count", data.length);
+        logger.info(`${req.method} ${req.originalUrl} Fetched ${data.length} records`);
+        logger.info(`${req.method} ${req.originalUrl} - Request Successful!!`);
 
-      if(req.query.category) {
-       data = mappedData.map((f) => {
-          if (!!f.category) {
-            let id = f.category;
-            f.category = categories.find((c) => c.id == id)?.category;
-          }
-          return f;
+        let mappedData = data.map((d) => d.get({ plain: true }));
+
+        if (req.query.category) {
+          data = mappedData.map((f) => {
+            if (!!f.category) {
+              let id = f.category;
+              f.category = categories.find((c) => c.id == id)?.category;
+            }
+            return f;
+          });
+        }
+
+        span.setStatus({ code: SpanStatusCode.OK });
+        res.send(data);
+      })
+      .catch((err) => {
+        logger.error(`${req.method} ${req.originalUrl} - Error fetching data`);
+
+        span.setStatus({ code: SpanStatusCode.ERROR, message: err.message });
+        span.recordException(err);
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials.",
         });
-      }
-
-      res.send(data);
-    })
-    .catch((err) => {
-      logger.error(`${req.method} ${req.originalUrl} - Error fetching data`);
-
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
-      });
-    });
+      })
+      .finally(() => span.end());
+  });
 };
 
 // Find a single Tutorial with an id
